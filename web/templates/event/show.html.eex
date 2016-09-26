@@ -6,8 +6,8 @@
     <strong>Name:</strong>
     <%= @event.name %>
   </li>
-
+  <%= for agenda_session <- @event.agenda_sessions do %>
+    <li><%= agenda_session.name %>- <%= EventilAgenda.AgendaSession.event_type(agenda_session) %>
+  <% end %>
 </ul>
-
-<%= link "Edit", to: event_path(@conn, :edit, @event) %>
 <%= link "Back", to: event_path(@conn, :index) %>

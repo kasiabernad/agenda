@@ -1,0 +1,33 @@
+<h2>Show agenda session</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @agenda_session.name %>
+  </li>
+
+  <li>
+    <strong>Started at:</strong>
+    <%= @agenda_session.started_at %>
+  </li>
+
+  <li>
+    <strong>Ended at:</strong>
+    <%= @agenda_session.ended_at %>
+  </li>
+
+  <li>
+    <strong>Event:</strong>
+    <%= @agenda_session.event_id %>
+  </li>
+
+  <li>
+    <strong>Kind:</strong>
+    <%= @agenda_session.kind %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: agenda_session_path(@conn, :edit, @agenda_session) %>
+<%= link "Back", to: agenda_session_path(@conn, :index) %>

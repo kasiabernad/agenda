@@ -1,0 +1,34 @@
+<h2>Listing agenda sessions</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Started at</th>
+      <th>Ended at</th>
+      <th>Submission</th>
+      <th>Event</th>
+      <th>Kind</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for agenda_session <- @agenda_sessions do %>
+    <tr>
+      <td><%= agenda_session.name %></td>
+      <td><%= agenda_session.started_at %></td>
+      <td><%= agenda_session.ended_at %></td>
+      <td><%=EventilAgenda.AgendaSession.event_type(agenda_session)%></td>
+
+      <td class="text-right">
+        <%= link "Show", to: agenda_session_path(@conn, :show, agenda_session), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: agenda_session_path(@conn, :edit, agenda_session), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: agenda_session_path(@conn, :delete, agenda_session), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New agenda session", to: agenda_session_path(@conn, :new) %>

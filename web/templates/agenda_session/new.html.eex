@@ -1,0 +1,6 @@
+<h2>New agenda session</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: agenda_session_path(@conn, :create) %>
+
+<%= link "Back", to: agenda_session_path(@conn, :index) %>
