@@ -1,7 +1,9 @@
+
 defmodule EventilAgenda.AgendaSessionController do
   use EventilAgenda.Web, :controller
 
   alias EventilAgenda.AgendaSession
+  alias EventilAgenda.Event
 
   def index(conn, _params) do
     agenda_sessions = Repo.all(AgendaSession)
@@ -15,12 +17,12 @@ defmodule EventilAgenda.AgendaSessionController do
 
   def create(conn, %{"agenda_session" => agenda_session_params}) do
     changeset = AgendaSession.changeset(%AgendaSession{}, agenda_session_params)
-
+    event = Repo.get!(Event, conn.params["agenda_session"]["event_id"] )
     case Repo.insert(changeset) do
       {:ok, _agenda_session} ->
         conn
         |> put_flash(:info, "Agenda session created successfully.")
-        |> redirect(to: agenda_session_path(conn, :index))
+        |> redirect(to: event_path(conn, :show, event))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -40,12 +42,12 @@ defmodule EventilAgenda.AgendaSessionController do
   def update(conn, %{"id" => id, "agenda_session" => agenda_session_params}) do
     agenda_session = Repo.get!(AgendaSession, id)
     changeset = AgendaSession.changeset(agenda_session, agenda_session_params)
-
+    event = Repo.get!(Event, conn.params["agenda_session"]["event_id"] )
     case Repo.update(changeset) do
       {:ok, agenda_session} ->
         conn
         |> put_flash(:info, "Agenda session updated successfully.")
-        |> redirect(to: agenda_session_path(conn, :show, agenda_session))
+        |> redirect(to: event_path(conn, :show, event))
       {:error, changeset} ->
         render(conn, "edit.html", agenda_session: agenda_session, changeset: changeset)
     end

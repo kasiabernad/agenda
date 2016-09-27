@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Event </th>
       <th>Started at</th>
       <th>Ended at</th>
       <th>Submission</th>
@@ -17,6 +18,7 @@
 <%= for agenda_session <- @agenda_sessions do %>
     <tr>
       <td><%= agenda_session.name %></td>
+      <td><%= agenda_session.event_id %></td>
       <td><%= agenda_session.started_at %></td>
       <td><%= agenda_session.ended_at %></td>
       <td><%=EventilAgenda.AgendaSession.event_type(agenda_session)%></td>

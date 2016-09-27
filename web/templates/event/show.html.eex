@@ -1,13 +1,19 @@
 <h2>Show event</h2>
 
-<ul>
-
-  <li>
-    <strong>Name:</strong>
+<div>
+  <strong>Agenda for:</strong>
     <%= @event.name %>
-  </li>
+  </div>
+      <%= link "New agenda session", to: agenda_session_path(@conn, :new) %>
+  <div>
   <%= for agenda_session <- @event.agenda_sessions do %>
-    <li><%= agenda_session.name %>- <%= EventilAgenda.AgendaSession.event_type(agenda_session) %>
+    <div><%= agenda_session.name %>
+    <%= EventilAgenda.AgendaSession.event_type(agenda_session) %>
+    <%= agenda_session.started_at %>
+    <%= agenda_session.ended_at %>
+    <%= link "Edit", to: agenda_session_path(@conn, :edit, agenda_session), class: "btn btn-default btn-xs" %>
+    <%= link "Delete", to: agenda_session_path(@conn, :delete, agenda_session), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+  </div>
   <% end %>
-</ul>
+  </div>
 <%= link "Back", to: event_path(@conn, :index) %>
